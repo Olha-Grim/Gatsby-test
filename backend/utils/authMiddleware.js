@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const AppError = require('../api/errors/appError');
-const userModel = require('../api/users/user.model');
+const AppError = require('../api/auth/errors/appError');
+// const userModel = require('../api/users/user.model');
 
 exports.authorize = async (req, res, next) => {
   const authHeader = req.get('Authorization');
@@ -15,15 +15,15 @@ exports.authorize = async (req, res, next) => {
   } catch (error) {
     next(new AppError('Unauthorized', 401));
   }
-  const user = await userModel.findOne({ _id: userId });
-  let idxToken;
-  if (user) {
-    idxToken = user.tokens.findIndex(({ token }) => token === userToken);
-  }
-  if (!user || idxToken === -1) {
-    next(new AppError('Unauthorized', 401));
-  }
-  req.user = user;
-  req.token = userToken;
-  return next();
+  // const user = await userModel.findOne({ _id: userId });
+  // let idxToken;
+  // if (user) {
+  //   idxToken = user.tokens.findIndex(({ token }) => token === userToken);
+  // }
+  // if (!user || idxToken === -1) {
+  //   next(new AppError('Unauthorized', 401));
+  // }
+  // req.user = user;
+  // req.token = userToken;
+  // return next();
 };
